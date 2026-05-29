@@ -27,6 +27,11 @@ export function getDb(): Database.Database {
       CREATE INDEX IF NOT EXISTS idx_log_entries_logged_at
         ON log_entries(logged_at);
     `);
+    try {
+      db.exec(`ALTER TABLE log_entries ADD COLUMN meal_category TEXT NOT NULL DEFAULT 'snack'`);
+    } catch {
+      // Column already exists — safe to ignore
+    }
   }
   return db;
 }

@@ -7,10 +7,18 @@ export async function GET() {
   const rows = db
     .prepare(
       `SELECT id, food_id as foodId, food_name as foodName, servings,
-              calories, protein, carbs, fat, logged_at as loggedAt
+              calories, protein, carbs, fat, logged_at as loggedAt,
+              meal_category as mealCategory
        FROM log_entries
        WHERE date(logged_at) = date('now')
-       ORDER BY logged_at ASC`
+       ORDER BY
+         CASE meal_category
+           WHEN 'breakfast' THEN 1
+           WHEN 'lunch' THEN 2
+           WHEN 'dinner' THEN 3
+           WHEN 'snack' THEN 4
+           ELSE 5 END,
+         logged_at ASC`
     )
     .all();
   return NextResponse.json(rows);
@@ -19,6 +27,10 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const db = getDb();
+
+  const mealCategory = ['breakfast', 'lunch', 'dinner', 'snack'].includes(body.mealCategory)
+    ? body.mealCategory
+    : 'snack';
 
   let foodId: string;
   let foodName: string;
@@ -29,7 +41,6 @@ export async function POST(req: NextRequest) {
   let fat: number;
 
   if (body.foodId) {
-    // Static food lookup
     const food = FOODS.find((f) => f.id === body.foodId);
     if (!food) {
       return NextResponse.json({ error: "Food not found" }, { status: 404 });
@@ -42,7 +53,6 @@ export async function POST(req: NextRequest) {
     carbs = food.carbs * servings;
     fat = food.fat * servings;
   } else {
-    // AI item with explicit macros — servings always 1 (AI already computed the portion)
     if (!body.foodName) {
       return NextResponse.json({ error: "foodId or foodName is required" }, { status: 400 });
     }
@@ -57,15 +67,16 @@ export async function POST(req: NextRequest) {
 
   const result = db
     .prepare(
-      `INSERT INTO log_entries (food_id, food_name, servings, calories, protein, carbs, fat)
-       VALUES (?, ?, ?, ?, ?, ?, ?)`
+      `INSERT INTO log_entries (food_id, food_name, servings, calories, protein, carbs, fat, meal_category)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
     )
-    .run(foodId, foodName, servings, calories, protein, carbs, fat);
+    .run(foodId, foodName, servings, calories, protein, carbs, fat, mealCategory);
 
   const newEntry = db
     .prepare(
       `SELECT id, food_id as foodId, food_name as foodName, servings,
-              calories, protein, carbs, fat, logged_at as loggedAt
+              calories, protein, carbs, fat, logged_at as loggedAt,
+              meal_category as mealCategory
        FROM log_entries WHERE id = ?`
     )
     .get(result.lastInsertRowid);

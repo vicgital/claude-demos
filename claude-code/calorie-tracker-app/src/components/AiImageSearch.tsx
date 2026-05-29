@@ -68,11 +68,11 @@ export default function AiImageSearch({ onAddEntry }: Props) {
           onClick={() => fileRef.current?.click()}
           onDrop={handleDrop}
           onDragOver={(e) => e.preventDefault()}
-          className="w-full border-2 border-dashed border-slate-300 rounded-xl py-10 text-center text-slate-400 hover:border-green-400 hover:text-green-500 transition-colors cursor-pointer"
+          className="w-full border-2 border-dashed border-slate-200 rounded-xl py-10 text-center text-slate-400 hover:border-emerald-400 hover:text-emerald-500 transition-colors cursor-pointer"
         >
           <div className="text-3xl mb-2">📷</div>
-          <div className="text-sm">Click to upload or drag a photo</div>
-          <div className="text-xs mt-1">JPEG, PNG, WEBP, GIF — up to 20 MB</div>
+          <div className="text-sm font-medium">Click to upload or drag a photo</div>
+          <div className="text-xs mt-1 text-slate-400">JPEG, PNG, WEBP, GIF — up to 20 MB</div>
         </button>
       ) : (
         <div className="relative rounded-xl overflow-hidden border border-slate-200">
@@ -82,10 +82,10 @@ export default function AiImageSearch({ onAddEntry }: Props) {
             className="w-full max-h-48 object-cover"
           />
           {loading && (
-            <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-              <div className="bg-white rounded-lg px-4 py-2 flex items-center gap-2 text-sm text-slate-700">
+            <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+              <div className="bg-white rounded-xl px-4 py-2.5 flex items-center gap-2 text-sm text-slate-700 shadow-lg">
                 <SpinnerDark />
-                Analyzing…
+                Analyzing with Gemini AI…
               </div>
             </div>
           )}
@@ -95,25 +95,26 @@ export default function AiImageSearch({ onAddEntry }: Props) {
       {preview && !loading && (
         <button
           onClick={reset}
-          className="text-xs text-slate-400 hover:text-slate-600 underline"
+          className="text-xs text-slate-400 hover:text-slate-600 underline underline-offset-2"
         >
           Choose a different photo
         </button>
       )}
 
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg px-4 py-2.5">
+        <div className="bg-rose-50 border border-rose-200 text-rose-700 text-sm rounded-xl px-4 py-2.5">
           {error}
         </div>
       )}
 
       {results && (
         <div className="space-y-2">
-          <p className="text-xs text-slate-500 italic">{results.description}</p>
+          <p className="text-xs text-slate-400 italic px-1">{results.description}</p>
           {results.items.length === 0 ? (
-            <p className="text-sm text-slate-400 text-center py-4">
-              No food items identified. Try a clearer photo.
-            </p>
+            <div className="text-center py-6 text-slate-400">
+              <div className="text-2xl mb-2">🔍</div>
+              <div className="text-sm">No food items identified. Try a clearer photo.</div>
+            </div>
           ) : (
             results.items.map((item, i) => (
               <AiResultCard key={i} item={item} onAdd={() => onAddEntry(item)} />

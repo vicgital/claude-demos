@@ -46,26 +46,32 @@ export default function AiTextSearch({ onAddEntry }: Props) {
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleAnalyze()}
           disabled={loading}
-          className="flex-1 px-3 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:border-green-400 disabled:opacity-50"
+          className="flex-1 px-3 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-100 disabled:opacity-50 placeholder:text-slate-400"
         />
         <button
           onClick={handleAnalyze}
           disabled={loading || !query.trim()}
-          className="bg-green-500 hover:bg-green-600 disabled:opacity-50 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors flex items-center gap-2 shrink-0"
+          className="bg-emerald-600 hover:bg-emerald-700 disabled:opacity-40 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors flex items-center gap-2 shrink-0"
         >
           {loading ? <Spinner /> : "Analyze"}
         </button>
       </div>
 
+      {loading && (
+        <div className="text-xs text-slate-400 text-center py-1">
+          Analyzing with Gemini AI…
+        </div>
+      )}
+
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg px-4 py-2.5">
+        <div className="bg-rose-50 border border-rose-200 text-rose-700 text-sm rounded-xl px-4 py-2.5">
           {error}
         </div>
       )}
 
       {results && (
         <div className="space-y-2">
-          <p className="text-xs text-slate-500 italic">{results.description}</p>
+          <p className="text-xs text-slate-400 italic px-1">{results.description}</p>
           {results.items.map((item, i) => (
             <AiResultCard key={i} item={item} onAdd={() => onAddEntry(item)} />
           ))}

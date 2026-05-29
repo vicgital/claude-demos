@@ -8,6 +8,8 @@ export interface FoodItem {
   fat: number;
 }
 
+export type MealCategory = 'breakfast' | 'lunch' | 'dinner' | 'snack';
+
 export interface LogEntry {
   id: number;
   foodId: string;
@@ -18,6 +20,7 @@ export interface LogEntry {
   carbs: number;
   fat: number;
   loggedAt: string;
+  mealCategory: MealCategory;
 }
 
 export interface DailySummary {
