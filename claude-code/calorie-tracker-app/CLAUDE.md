@@ -39,8 +39,11 @@ src/
 │       └── ai/image/route.ts   POST — image-based AI nutrition lookup
 ├── components/
 │   ├── CalorieSummary.tsx  Daily totals banner
-│   ├── FoodSearch.tsx      Search bar + filtered food list
+│   ├── FoodSearch.tsx      Quick-add: search bar + static food list
 │   ├── FoodCard.tsx        Single food result with Add button
+│   ├── AiTextSearch.tsx    Describe tab: text input → Gemini → results
+│   ├── AiImageSearch.tsx   Photo tab: image upload → Gemini → results
+│   ├── AiResultCard.tsx    Single AI food result with Add to Log button
 │   ├── DailyLog.tsx        List of today's log entries
 │   └── LogEntry.tsx        Single log row with delete button
 ├── lib/
@@ -81,9 +84,20 @@ Both routes return the same `AiNutritionResponse` shape:
 
 **`POST /api/ai/image`** — Body: `multipart/form-data` with `image` field (JPEG/PNG/WEBP/GIF, ≤20 MB)
 
+## Adding Food — Three Ways
+
+The "Add Food" panel has three tabs:
+
+| Tab | How it works |
+|-----|-------------|
+| **Quick Add** | Search 25 built-in foods by name, choose serving size, click Add |
+| **Describe** | Type a meal description in plain English → Gemini breaks it into items → click "Add to Log" per item |
+| **Photo** | Upload or drag a food photo → Gemini identifies foods and estimates portions → confirm and add items |
+
+AI results show each food item with its own "Add to Log" button. After adding, the button changes to "Added ✓" to prevent duplicates.
+
 ## What's Next
 
-- **Wire AI routes to the frontend** — add a text input and camera/file upload in the Add Food panel
 - **Daily calorie goal** — set a target and show progress toward it
 - **Weekly history** — view logs for past days
 - **Macro targets** — set protein/carb/fat goals
