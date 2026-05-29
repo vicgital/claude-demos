@@ -1,0 +1,48 @@
+{
+  "barrys": {
+    "name": "Barry's",
+    "homepage": {
+      "screenshot": "C:\\Git\\Vicgital\\claude-demos\\claude-code\\plugins-demos\\playwright-demo\\screenshots\\barrys_homepage.png",
+      "title": "Barry’s: The Best HIIT Workouts & Full Body Fitness Classes",
+      "url": "https://www.barrys.com/",
+      "heroText": "TRY THE BEST WORKOUT IN THE WORLD™",
+      "ctas": [
+        "Book Your First Class",
+        "BOOK YOUR FIRST CLASS",
+        "BOOK YOUR FIRST CLASS"
+      ]
+    },
+    "schedule": {
+      "screenshot": "C:\\Git\\Vicgital\\claude-demos\\claude-code\\plugins-demos\\playwright-demo\\screenshots\\barrys_schedule.png",
+      "url": "https://www.barrys.com/studios"
+    },
+    "pricing": null,
+    "austin": {
+      "screenshot": "C:\\Git\\Vicgital\\claude-demos\\claude-code\\plugins-demos\\playwright-demo\\screenshots\\barrys_austin.png",
+      "url": "https://www.barrys.com/studios"
+    }
+  },
+  "purebarre": {
+    "name": "Pure Barre",
+    "homepage": {
+      "screenshot": "C:\\Git\\Vicgital\\claude-demos\\claude-code\\plugins-demos\\playwright-demo\\screenshots\\purebarre_homepage.png",
+      "title": "Pure Barre | The Best Full Body Workout | Barre Class",
+      "url": "https://www.purebarre.com/",
+      "heroText": "The Best Full Body Workout",
+      "ctas": [
+        "free barre class",
+        "free barre class",
+        "Free Barre Class"
+      ]
+    },
+    "schedule": {
+      "screenshot": "C:\\Git\\Vicgital\\claude-demos\\claude-code\\plugins-demos\\playwright-demo\\screenshots\\purebarre_schedule.png",
+      "url": "https://lp.purebarre.com/try?clubready_referraltypeid=129043&clubready_referraltypeid_ca=129044&amp_device_id=nkXYuTaPkHTcOxZFsmc1JL"
+    },
+    "pricing": null,
+    "austin": {
+      "screenshot": "C:\\Git\\Vicgital\\claude-demos\\claude-code\\plugins-demos\\playwright-demo\\screenshots\\purebarre_austin.png",
+      "url": "https://www.purebarre.com/location-search"
+    }
+  }
+}
