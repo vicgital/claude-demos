@@ -26,3 +26,23 @@ export interface DailySummary {
   totalCarbs: number;
   totalFat: number;
 }
+
+export interface AiNutritionItem {
+  name: string;
+  servingSize: string;
+  calories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+}
+
+export interface AiNutritionResponse {
+  description: string;
+  items: AiNutritionItem[];
+  totals: {
+    calories: number;
+    protein: number;
+    carbs: number;
+    fat: number;
+  };
+}
